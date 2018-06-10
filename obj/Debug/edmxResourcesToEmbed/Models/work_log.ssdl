@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="work_logModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="jobs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="tax" Type="decimal" Precision="2" Scale="2" Nullable="false" />
+    <Property Name="hourlyrate" Type="decimal" Precision="2" Scale="2" Nullable="false" />
+    <Property Name="userid" Type="int" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="shifts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="start_datetime" Type="datetime" Nullable="false" />
+    <Property Name="end_datetime" Type="datetime" Nullable="false" />
+    <Property Name="total" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+    <Property Name="jobid" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tasks">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="starttime" Type="datetime" Nullable="false" />
+    <Property Name="endtime" Type="datetime" Nullable="false" />
+    <Property Name="amt" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+    <Property Name="shiftid" Type="int" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_job_login">
+    <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+    <End Role="jobs" Type="Self.jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="jobs">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_shift_jobs">
+    <End Role="jobs" Type="Self.jobs" Multiplicity="1" />
+    <End Role="shifts" Type="Self.shifts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="jobs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="shifts">
+        <PropertyRef Name="jobid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tasks_shift">
+    <End Role="shifts" Type="Self.shifts" Multiplicity="1" />
+    <End Role="tasks" Type="Self.tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="shifts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tasks">
+        <PropertyRef Name="shiftid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="work_logModelStoreContainer">
+    <EntitySet Name="jobs" EntityType="Self.jobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="shifts" EntityType="Self.shifts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tasks" EntityType="Self.tasks" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_job_login" Association="Self.FK_job_login">
+      <End Role="Login" EntitySet="Login" />
+      <End Role="jobs" EntitySet="jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_shift_jobs" Association="Self.FK_shift_jobs">
+      <End Role="jobs" EntitySet="jobs" />
+      <End Role="shifts" EntitySet="shifts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tasks_shift" Association="Self.FK_tasks_shift">
+      <End Role="shifts" EntitySet="shifts" />
+      <End Role="tasks" EntitySet="tasks" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
