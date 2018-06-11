@@ -16,62 +16,81 @@ namespace worklogapi.Controllers
     {
         private work_logEntities db = new work_logEntities();
 
+        
+
         // GET: api/Logins
+        [Route("api/Logins")]
         public IQueryable<Login> GetLogins()
         {
             return db.Logins;
         }
 
         // GET: api/Logins/5
-        [ResponseType(typeof(Login))]
-        public IHttpActionResult GetLogin(int id)
-        {
-            Login login = db.Logins.Find(id);
-            if (login == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Login))]
+        //public IHttpActionResult GetLogin(int id)
+        //{
+        //    Login login = db.Logins.Find(id);
+        //    if (login == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(login);
-        }
+        //    return Ok(login);
+        //}
 
         // PUT: api/Logins/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutLogin(int id, Login login)
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutLogin(int id, Login login)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    if (id != login.Id)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    db.Entry(login).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!LoginExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
+        [HttpPost]
+        [Route("api/auth")]
+        public IHttpActionResult Auth(Login login)
         {
-            if (!ModelState.IsValid)
+            var logins = db.Logins.Where(e => e.email == login.email && e.password == login.password).SingleOrDefault();
+            if (logins != null)
             {
-                return BadRequest(ModelState);
+                return Ok(true);
             }
-
-            if (id != login.Id)
+            else
             {
-                return BadRequest();
+                return Ok(false);
             }
-
-            db.Entry(login).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LoginExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            
         }
 
         // POST: api/Logins
         [ResponseType(typeof(Login))]
+        [Route("api/register")]
         public IHttpActionResult PostLogin(Login login)
         {
             if (!ModelState.IsValid)
@@ -102,6 +121,7 @@ namespace worklogapi.Controllers
 
         // DELETE: api/Logins/5
         [ResponseType(typeof(Login))]
+        [Route("api/Deleteuser")]
         public IHttpActionResult DeleteLogin(int id)
         {
             Login login = db.Logins.Find(id);
@@ -116,14 +136,14 @@ namespace worklogapi.Controllers
             return Ok(login);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
         private bool LoginExists(int id)
         {

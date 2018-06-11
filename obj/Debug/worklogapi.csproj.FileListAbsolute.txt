@@ -19,3 +19,6 @@ C:\Users\Owner\source\repos\worklogapi\worklogapi\obj\Debug\worklogapi.csprojRes
 C:\Users\Owner\source\repos\worklogapi\worklogapi\obj\Debug\worklogapi.csproj.CoreCompileInputs.cache
 C:\Users\Owner\source\repos\worklogapi\worklogapi\obj\Debug\worklogapi.dll
 C:\Users\Owner\source\repos\worklogapi\worklogapi\obj\Debug\worklogapi.pdb
+C:\Users\Owner\source\repos\worklogapi\worklogapi\bin\System.Web.Cors.dll
+C:\Users\Owner\source\repos\worklogapi\worklogapi\bin\System.Web.Http.Cors.dll
+C:\Users\Owner\source\repos\worklogapi\worklogapi\bin\System.Web.Http.Cors.xml

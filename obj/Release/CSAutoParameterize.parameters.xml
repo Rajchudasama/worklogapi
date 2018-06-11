@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="work_logEntities-Web.config Connection String" description="work_logEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.work_log.csdl|res://*/Models.work_log.ssdl|res://*/Models.work_log.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=web-developmentserver.database.windows.net;initial catalog=work_log;user id=raj;password=Princess@007;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Owner\\source\\repos\\worklogapi\\worklogapi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='work_logEntities']/@connectionString" />
+  </parameter>
+</parameters>

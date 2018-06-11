@@ -19,6 +19,9 @@ namespace worklogapi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.EnableCors(new System.Web.Http.Cors.EnableCorsAttribute("*", "*", "GET,PUT,POST,DELETE"));
+            config.Formatters.JsonFormatter.SupportedMediaTypes
+    .Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
         }
     }
 }
